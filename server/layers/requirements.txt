@@ -1,0 +1,4 @@
+numpy-2.2.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+matplotlib-3.10.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+networkx-3.4.2-py3-none-any.whl
+PyMySQL-1.1.1-py3-none-any.whl
