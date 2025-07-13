@@ -1,10 +1,10 @@
-# Graph App: Graph Analysis and Visualization Suite
+# Graph App: Graph Theory Tool Suite
 
 ***Cloud-native and scalable graph theory tool suite built on AWS. Includes support for graph generation, analysis, and visualization.***
 
 *Originally built for COMP_SCI 310: Scalable Software Architectures at Northwestern University.*
 
-- Author: Bennett Lindberg
+- Authors: Bennett Lindberg, Professor Joe Hummel
 - Date: March 2025
 
 ## Overview
