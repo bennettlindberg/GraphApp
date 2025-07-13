@@ -1,21 +1,94 @@
 # Graph App: Graph Analysis and Visualization Suite
 
-- Author: Bennett Lindberg
-- Date: March 21, 2025
+***Cloud-native and scalable graph theory tool suite built on AWS. Includes support for graph generation, analysis, and visualization.***
 
-## Contents
+*Originally built for COMP_SCI 310: Scalable Software Architectures at Northwestern University.*
+
+- Author: Bennett Lindberg
+- Date: March 2025
+
+## Overview
+
+Graph theory problems are difficult to visualize and analyze manually. This full-stack, cloud-native application tackles that challenge by providing an intuitive platform for graph manipulation and analysis built on AWS's scalable infrastructure. The system leverages a four-tier architecture with API Gateway, Lambda functions, RDS database, and S3 storage to deliver enterprise-grade performance and reliability for graph processing workloads.
+
+Users can upload their own graph data or generate random graphs, then leverage powerful algorithms like Dijkstra's shortest path, Prim's minimum spanning tree, and cycle detection through asynchronous processing that handles arbitrarily large graphs without timeout limitations. The serverless Lambda-based compute tier automatically scales to meet demand, and the ability to generate clear PNG graph visualizations makes complex graph structures immediately understandable and accessible to users.
+
+## Repository Structure
 
 All code and configuration files needed to set up the project are provided in this directory. The primary components are located as follows:
 
-- Client: client/
-    - Dockerfile: client/docker/Dockerfile
-    - REPL code: client/main.py
-    - Test data files: client/test-graphs/
-- Server: server/
-    - Custom Lambda layer: server/layers/final-project-layer-bin.zip
-    - Lambda functions code: server/functions/
-- Database: database/
-    - Schema file: database/graphapp-database.sql
+- **Client: `client/`**
+    - Dockerfile: `client/docker/Dockerfile`
+    - REPL code: `client/main.py`
+    - Test data files: `client/test-graphs/`
+- **Server: `server/`**
+    - Custom Lambda layer: `server/layers/final-project-layer-bin.zip`
+    - Lambda functions code: `server/functions/`
+- **Database: `database/`**
+    - Schema file: `database/graphapp-database.sql`
+- **Documentation: `docs/`**
+    - Full specification: `docs/Graph-App-Specification.pdf`
+
+## Features
+
+### Core Capabilities
+- **Graph Generation**: Create random graphs with specific properties:
+    - **`any`**: Random graph with no constraints
+    - **`connected`**: Guaranteed connected graph
+    - **`complete`**: Complete graph (all vertices connected)
+    - **`acyclic`**: Acyclic graph (no cycles)
+    - **`tree`**: Tree structure
+    - **`bipartite`**: Bipartite graph
+- **Graph Analysis**: Examine for graph theory properties:
+    - **`is_connected`**: Check if graph is connected
+    - **`has_cycle`**: Detect cycles in the graph
+    - **`shortest_paths`**: Find shortest paths from root node
+    - **`reachable_nodes`**: Find all nodes reachable from root
+    - **`mst`**: Generate minimum spanning tree
+- **Graph Visualization**: Automatically generate clear PNG visualizations
+
+### Technical Features
+- **Serverless Architecture**: Auto-scaling Lambda functions for optimal performance
+- **Asynchronous Processing**: Large graph processing without timeout limitations
+- **Persistent Storage**: Cloud storage using AWS S3 and RDS
+- **Caching**: Visualizations cached to improve response times
+- **RESTful API**: Comprehensive REST endpoints for all operations
+- **Python Client**: Easy-to-use Python3 client library
+
+## Architecture
+
+### Four-Tier Design
+
+1. **Client Tier**: Python3 client and direct REST API access
+2. **Server Tier**: AWS API Gateway providing RESTful endpoints
+3. **Compute Tier**: AWS Lambda functions for processing and algorithms
+4. **Data Tier**: AWS RDS for metadata and AWS S3 for file storage
+
+### Database Schema
+- **graphs** table
+    - Tracks graph data and visualizations
+    - Columns: `graphid`, `datafilekey`, `visualfilekey`
+- **jobs** table
+    - Tracks graph analysis jobs
+    - Columns: `jobid`, `graphid`, `status`, `resultsfilekey`
+
+### REST API Endpoints
+
+#### Graph Management
+- `POST /graph` - Upload a new graph
+- `GET /graph/:graphid` - Retrieve graph data
+- `DELETE /graph/:graphid` - Delete a graph
+- `GET /graphs` - List all graphs
+
+#### Graph Operations
+- `GET /random/:type` - Generate random graphs
+- `GET /visual/:graphid` - Get graph visualization
+- `GET /analysis/:graphid/:type` - Start analysis job (asynchronous)
+- `GET /results/:jobid` - Retrieve analysis results
+
+#### Job Management
+- `GET /jobs` - List all analysis jobs
+- `DELETE /jobs` - Clear all jobs
 
 ## Installation
 
